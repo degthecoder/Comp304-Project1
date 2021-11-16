@@ -1,3 +1,6 @@
+// Name: Burak Yıldırım, ID: 72849
+// Name: Duha Emir Ganioğlu, ID: 71753
+
 #include <unistd.h>
 #include <sys/wait.h>
 #include <stdio.h>
@@ -566,7 +569,6 @@ int process_command(struct command_t *command)
 			strcat(croncwd,"/remindmecron.cron");
 			strcpy(sshcwd, cwd);
 			strcat(sshcwd, "/remindme.sh");
-			printf("%s, %s\n",croncwd, sshcwd);
 			strcpy(cronFileParam[0],croncwd);
 			const char* delp;
 			int ct = 1;
