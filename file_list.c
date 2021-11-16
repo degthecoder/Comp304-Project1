@@ -13,6 +13,7 @@
 
 #define SIZE 1024
 
+//setting up the filename as the module parameter
 static char *filename;
 module_param(filename, charp, 0);
 
@@ -45,6 +46,7 @@ static int __init my_driver_init(void)
 		goto r_class;
 	}
 
+	//creates the character device file
 	if((device_create(dev_class, NULL, dev, NULL, filename)) == NULL) {
 		printk(KERN_INFO " cannot create the device ..\n");
 		goto r_device;
@@ -52,14 +54,18 @@ static int __init my_driver_init(void)
 
 	printk(KERN_INFO"Device driver insert...done properly...");
 	
+	//initialize necessary variables
 	const char *currentName = NULL;
 	struct dentry *dentryInf;
     struct dentry *currentDentry;
     struct file *file;
     printk(KERN_INFO "File Name kernel...\n");
+	//open dev directory to get sibling files
     file = filp_open("/dev/", O_RDONLY, 0);
     dentryInf = file->f_path.dentry;
+	//iterate through the directory
     list_for_each_entry(currentDentry, &dentryInf->d_subdirs, d_child) {
+		//print the current name of the file
         currentName = currentDentry->d_name.name;
         printk(KERN_INFO "Name of the file: %s \n", currentName);
     }
